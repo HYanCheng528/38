@@ -152,7 +152,7 @@
             blessingDiv.textContent = '正在生成祝福语...';
 
             try {
-                const response = await fetch('/api/generate-blessing', {
+                const response = await fetch('/api/generate-blessing.js', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
