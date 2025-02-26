@@ -7,7 +7,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static('.'));
 
-app.post('/api/generate-blessing', async (req, res) => {
+// 将API路由改为Vercel兼容的格式
+app.post('/generate-blessing', async (req, res) => {
     try {
         const response = await axios.post('https://ark.cn-beijing.volces.com/api/v3/chat/completions', req.body, {
             headers: {
@@ -22,7 +23,13 @@ app.post('/api/generate-blessing', async (req, res) => {
     }
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`服务器运行在 http://localhost:${PORT}`);
-});
+// 导出app实例供Vercel使用
+module.exports = app;
+
+// 仅在本地开发时启动服务器
+if (process.env.NODE_ENV !== 'production') {
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+        console.log(`服务器运行在 http://localhost:${PORT}`);
+    });
+}
