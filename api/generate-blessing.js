@@ -1,8 +1,6 @@
-const express = require('express');
-const cors = require('cors');
-const axios = require('axios');
+import axios from 'axios';
 
-async function handler(req, res) {
+export default async function handler(req, res) {
     if (req.method === 'POST') {
         try {
             const response = await axios.post('https://ark.cn-beijing.volces.com/api/v3/chat/completions', req.body, {
@@ -24,5 +22,3 @@ async function handler(req, res) {
         res.status(405).json({ error: '方法不允许' });
     }
 }
-
-module.exports = handler;
